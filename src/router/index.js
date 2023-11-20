@@ -22,6 +22,7 @@ const routes = [
     {path: "/login", component: Login},
     {path: "/posts/:id", component: SinglePost},
     {path: "/users/:id", component: Profile},
+    {path: "/profile", component: Profile, beforeEnter: ifAuthenticated},
     {path: "/:pathMatch(.*)*", component: NotFound},
 ];
 

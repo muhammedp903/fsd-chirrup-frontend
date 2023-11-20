@@ -2,9 +2,9 @@
     <div>
         <h1>Login</h1>
         <form @submit.prevent="handleSubmit">
-          <label for="email">Email: </label>
-          <input type="email" name="email" v-model="email"/>
-          <div v-show="submitted && !email">Email is required</div>
+          <label for="username">Username: </label>
+          <input type="text" name="username" v-model="username"/>
+          <div v-show="submitted && !username">Username is required</div>
 
           <br/><br/>
 
@@ -19,12 +19,12 @@
 </template>
 
 <script>
-  import * as EmailValidator from "email-validator";
+  import {userService} from "@/services/user.service";
 
   export default {
     data(){
       return {
-        email: "",
+        username: "",
         password: "",
         submitted: false,
         error: ""
@@ -34,23 +34,32 @@
       handleSubmit(e){
         this.submitted = true;
         this.error = "";
-        const {email, password} = this;
+        const {username, password} = this;
 
-        if(!(email && password)){
+        if(!(username && password)){
           return;
         }
 
-        if(!(EmailValidator.validate(email))){
-          this.error = "Email must be a valid email";
-          return;
-        }
+        // todo: validate username
+        // if(!(EmailValidator.validate(username))){
+        //   this.error = "Email must be a valid email";
+        //   return;
+        // }
         const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$£!%*?&.,^#])[A-Za-z\d@$£!%*?&.,^#]{8,32}$/;
         if(!(passwordPattern.test(password))){
           this.error = "Password does not meet requirements";
           return;
         }
-        // TODO: API request
-        alert("Submit");
+
+        userService.login(username, password)
+            .then(result => {
+              console.log("Auth successful");
+              this.$router.push("/");
+            })
+            .catch(error => {
+              this.error = error;
+              this.submitted = false;
+            })
       }
     }
   }

@@ -1,20 +1,20 @@
-const login = () => {
-    return fetch("http://localhost:3333/login")
-        .then((response) => {
-            if(response.status === 200){
-                return response.json();
-            } else {
-                throw "Something went wrong";
-            }
-        })
-        .then((resJson) => {
-            return resJson;
-        })
-        .catch((error) => {
-            console.log(error);
-            return Promise.reject(error);
-        })
-};
+// const login = () => {
+//     return fetch("http://localhost:3333/login")
+//         .then((response) => {
+//             if(response.status === 200){
+//                 return response.json();
+//             } else {
+//                 throw "Something went wrong.";
+//             }
+//         })
+//         .then((resJson) => {
+//             return resJson;
+//         })
+//         .catch((error) => {
+//             console.log(error);
+//             return Promise.reject(error);
+//         })
+// };
 
 const getUser = (userId) => {
     return fetch(`http://localhost:3333/users/${userId}`)
@@ -22,7 +22,7 @@ const getUser = (userId) => {
             if(response.status === 200){
                 return response.json();
             } else {
-                throw "Something went wrong";
+                throw "Something went wrong.";
             }
         })
         .then((resJson) => {
@@ -34,7 +34,72 @@ const getUser = (userId) => {
         })
 };
 
+const login = (username, password) => {
+    return fetch(
+        "http://localhost:3333/login",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                "username": username,
+                "password": password
+            })
+        })
+        .then(response => {
+            if(response.status === 200){
+                return response.json();
+            } else if(response.status === 400){
+                throw "Incorrect username or password";
+            } else{
+                throw "Something went wrong."
+            }
+        })
+        .then(rJson => {
+            localStorage.setItem("user_id", rJson.user_id);
+            localStorage.setItem("session_token", rJson.session_token);
+            return rJson;
+        })
+        .catch(error => {
+            console.log(error);
+            return Promise.reject(error);
+        });
+};
+
+const logout = () => {
+    return fetch(
+        "http://localhost:3333/logout",
+        {
+            method: "POST",
+            headers: {
+                "X-Authorization": localStorage.getItem("session_token")
+            },
+        })
+        .then(response => {
+            if(response.status === 200){
+                localStorage.removeItem("session_token");
+                localStorage.removeItem("user_id");
+                return;
+            } else if(response.status === 401){
+                throw "Not logged in";
+            } else{
+                throw "Something went wrong."
+            }
+        })
+        .then(rJson => {
+            localStorage.setItem("user_id", rJson.user_id);
+            localStorage.setItem("session_token", rJson.session_token);
+            return rJson;
+        })
+        .catch(error => {
+            console.log(error);
+            return Promise.reject(error);
+        });
+};
+
 export const userService = {
     login,
+    logout,
     getUser,
 }
