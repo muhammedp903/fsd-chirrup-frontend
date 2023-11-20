@@ -1,5 +1,12 @@
 const getFeed = () => {
-    return fetch("http://localhost:3333/feed")
+    return fetch(
+        "http://localhost:3333/feed",
+        {
+            method: "GET",
+            headers: {
+                "X-Authorization": localStorage.getItem("session_token")
+            }
+        })
         .then((response) => {
             if(response.status === 200){
                 return response.json();

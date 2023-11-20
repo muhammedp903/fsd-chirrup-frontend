@@ -5,6 +5,7 @@
       <router-link v-if="!authenticated" to="/login">Login</router-link>
       <router-link v-if="authenticated" to="/profile">Profile</router-link>
     </nav>
+    <br/>
     <router-view/>
   </div>
 </template>

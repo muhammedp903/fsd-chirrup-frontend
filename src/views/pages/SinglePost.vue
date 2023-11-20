@@ -3,9 +3,8 @@
     <em v-if="post.loading">Loading post...</em>
 
     <div v-else>
-<!--      <p>Author: {{post.author.first_name + " " + post.author.last_name}}</p>-->
       <router-link :to="'/users/' + post.author.user_id">
-        {{post.author.first_name + " " + post.author.last_name}}
+        <h3>{{post.author.first_name + " " + post.author.last_name}}</h3>
       </router-link>
       <p>Text: {{post.text}}</p>
       <p>Date: {{post.timestamp}}</p>

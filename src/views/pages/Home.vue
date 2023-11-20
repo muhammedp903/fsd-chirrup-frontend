@@ -1,7 +1,6 @@
 <template>
   <div>
     <h1>Home</h1>
-    <p>{{welcome_message}}</p>
 
     <em v-if="loading">Loading posts...</em>
 
@@ -12,6 +11,7 @@
         </router-link>
       </li>
     </ul>
+    <p v-else>Nothing to see here...</p>
 
     <div v-if="error">{{error}}</div>
   </div>

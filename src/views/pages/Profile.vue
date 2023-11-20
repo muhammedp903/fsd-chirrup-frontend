@@ -4,7 +4,15 @@
 
     <div v-else>
       <p>Name: {{user.first_name + " " + user.last_name}}</p>
-      <p>Posts: {{user.posts}}</p>
+      <ul v-if="user.posts.length">
+        <li v-for="post in user.posts" :key="post.post_id">
+          <router-link :to="'/posts/' + post.post_id">
+            {{post.text}}
+          </router-link>
+        </li>
+      </ul>
+      <p v-else>Nothing to see here...</p>
+<!--      <p>Posts: {{user.posts}}</p>-->
 
       <button v-if="authenticated" @click="logout">Logout</button>
 
@@ -28,7 +36,7 @@ export default {
       error: "",
     };
   },
-  mounted() {
+  created() {
     this.user.loading = true;
     let id = "";
     console.log(this.$route)
@@ -45,6 +53,7 @@ export default {
     userService.getUser(id)
         .then((user) => {
           this.user = user;
+          console.log(user);
         })
         .catch(error => this.error = error);
   },
