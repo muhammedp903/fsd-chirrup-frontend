@@ -1,8 +1,10 @@
 import {createRouter, createWebHistory} from "vue-router";
 
-import Home from "../Home.vue";
-import Login from "../Login.vue";
-import NotFound from "../NotFound.vue";
+import Home from "../views/pages/Home.vue";
+import Login from "../views/pages/Login.vue";
+import NotFound from "../views/pages/NotFound.vue";
+import SinglePost from "@/views/pages/SinglePost.vue";
+import Profile from "@/views/pages/Profile.vue";
 
 const ifAuthenticated = (to, from, next) => {
     // To use on routes requiring authentication
@@ -18,6 +20,8 @@ const ifAuthenticated = (to, from, next) => {
 const routes = [
     {path: "/", component: Home},
     {path: "/login", component: Login},
+    {path: "/posts/:id", component: SinglePost},
+    {path: "/users/:id", component: Profile},
     {path: "/:pathMatch(.*)*", component: NotFound},
 ];
 
