@@ -13,22 +13,27 @@
     </ul>
     <p v-else>Nothing to see here...</p>
 
+    <hr/>
+
+    <Search/>
+
     <div v-if="error">{{error}}</div>
   </div>
 </template>
 
 <script>
 import {postService} from "@/services/posts.service";
+import Search from "@/views/components/Search.vue";
 
 export default {
-    data(){
-      return {
-        welcome_message: "Welcome to Chirrup",
-        posts: [],
-        error: "",
-        loading: true,
-      };
-    },
+  data(){
+    return {
+      welcome_message: "Welcome to Chirrup",
+      posts: [],
+      error: "",
+      loading: true,
+    };
+  },
   mounted() {
       postService.getFeed()
           .then(posts => {
@@ -38,7 +43,8 @@ export default {
   },
   methods: {
     },
-    components: {
+  components: {
+    Search
     }
   }
 </script>

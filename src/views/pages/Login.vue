@@ -20,6 +20,7 @@
 
 <script>
   import {userService} from "@/services/user.service";
+  import {store} from "@/services/store"
 
   export default {
     data(){
@@ -29,6 +30,12 @@
         submitted: false,
         error: ""
       };
+    },
+    mounted() {
+      const token = localStorage.getItem("session_token");
+      if(token){
+        this.$router.replace("/profile");
+      }
     },
     methods: {
       handleSubmit(e){
@@ -54,7 +61,8 @@
         userService.login(username, password)
             .then(result => {
               console.log("Auth successful");
-              this.$router.push("/");
+              this.$router.replace("/");
+              store.authenticated = true;
             })
             .catch(error => {
               this.error = error;

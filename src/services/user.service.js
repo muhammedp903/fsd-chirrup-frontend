@@ -1,21 +1,3 @@
-const getUser = (userId) => {
-    return fetch(`http://localhost:3333/users/${userId}`)
-        .then((response) => {
-            if(response.status === 200){
-                return response.json();
-            } else {
-                throw "Something went wrong.";
-            }
-        })
-        .then((resJson) => {
-            return resJson;
-        })
-        .catch((error) => {
-            console.log(error);
-            return Promise.reject(error);
-        })
-};
-
 const login = (username, password) => {
     return fetch(
         "http://localhost:3333/login",
@@ -75,8 +57,36 @@ const logout = () => {
         });
 };
 
+const createUser = (user) => {
+    return fetch(
+        "http://localhost:3333/users",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(user)
+        })
+        .then(response => {
+            if(response.status === 201){
+                return response.json();
+            } else if(response.status === 400){
+                throw "Bad request (username taken)";
+            } else{
+                throw "Something went wrong."
+            }
+        })
+        .then(rJson => {
+            return rJson;
+        })
+        .catch(error => {
+            console.log(error);
+            return Promise.reject(error);
+        });
+}
+
 export const userService = {
     login,
     logout,
-    getUser,
+    createUser,
 }

@@ -1,31 +1,17 @@
 <template>
   <div>
-    <nav>
-      <router-link to="/">Home</router-link>
-      <router-link v-if="!authenticated" to="/login">Login</router-link>
-      <router-link v-if="authenticated" to="/profile">Profile</router-link>
-    </nav>
+    <Nav/>
     <br/>
     <router-view/>
   </div>
 </template>
 
 <script>
+import Nav from "@/views/components/Nav.vue";
+
 export default {
-  data(){
-    return {
-      authenticated: false,
-    }
-  },
-  mounted() {
-    const token = localStorage.getItem("session_token");
-    if(token){
-      this.authenticated = true;
-    }
-  },
-  methods: {
-  },
   components: {
+    Nav
   }
 }
 </script>

@@ -5,10 +5,9 @@ import Login from "../views/pages/Login.vue";
 import NotFound from "../views/pages/NotFound.vue";
 import SinglePost from "@/views/pages/SinglePost.vue";
 import Profile from "@/views/pages/Profile.vue";
+import Register from "@/views/pages/Register.vue";
 
 const ifAuthenticated = (to, from, next) => {
-    // To use on routes requiring authentication
-    // e.g. {path: "/dashboard", component: Dashboard, beforeEnter: ifAuthenticated},
     const loggedIn = localStorage.getItem("session_token");
     if (loggedIn){
         next();
@@ -20,6 +19,7 @@ const ifAuthenticated = (to, from, next) => {
 const routes = [
     {path: "/", component: Home},
     {path: "/login", component: Login},
+    {path: "/register", component: Register},
     {path: "/posts/:id", component: SinglePost},
     {path: "/users/:id", component: Profile},
     {path: "/profile", component: Profile, beforeEnter: ifAuthenticated},
