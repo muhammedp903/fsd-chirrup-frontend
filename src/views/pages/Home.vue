@@ -2,6 +2,8 @@
   <div>
     <h1>Home</h1>
 
+    <button @click="newPost">New Post</button>
+
     <em v-if="loading">Loading posts...</em>
 
     <ul v-if="posts.length">
@@ -28,7 +30,6 @@ import Search from "@/views/components/Search.vue";
 export default {
   data(){
     return {
-      welcome_message: "Welcome to Chirrup",
       posts: [],
       error: "",
       loading: true,
@@ -42,7 +43,10 @@ export default {
           });
   },
   methods: {
+    newPost() {
+      this.$router.push("/posts/new");
     },
+  },
   components: {
     Search
     }

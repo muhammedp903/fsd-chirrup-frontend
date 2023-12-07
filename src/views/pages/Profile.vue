@@ -7,6 +7,8 @@
 
       <button v-if="!isCurrentUser && store.authenticated" @click="followAction">{{followButtonText}}</button>
 
+      <button v-if="isCurrentUser" @click="newPost">New Post</button>
+
       <ul v-if="user.posts.length">
         <li v-for="post in user.posts" :key="post.post_id">
           <router-link :to="'/posts/' + post.post_id">
@@ -32,6 +34,7 @@
 import {userService} from "@/services/user.service";
 import {store} from "@/services/store"
 import {socialService} from "@/services/social.service";
+import newPost from "@/views/pages/EditPost.vue";
 
 export default {
   data(){
@@ -73,6 +76,9 @@ export default {
         .catch(error => this.error = error);
   },
   methods: {
+    newPost() {
+      this.$router.push("/posts/new");
+    },
     logout(){
       userService.logout()
           .then(() => {
@@ -96,6 +102,7 @@ export default {
             .catch(error => this.error = error);
       }
     },
+
   }
 };
 </script>

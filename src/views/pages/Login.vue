@@ -67,8 +67,8 @@
             .catch(error => {
               this.error = error;
               this.submitted = false;
-            })
+            });
       }
     }
-  }
+  };
 </script>

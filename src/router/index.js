@@ -6,6 +6,7 @@ import NotFound from "../views/pages/NotFound.vue";
 import SinglePost from "@/views/pages/SinglePost.vue";
 import Profile from "@/views/pages/Profile.vue";
 import Register from "@/views/pages/Register.vue";
+import EditPost from "@/views/pages/EditPost.vue";
 
 const ifAuthenticated = (to, from, next) => {
     const loggedIn = localStorage.getItem("session_token");
@@ -23,6 +24,8 @@ const routes = [
     {path: "/posts/:id", component: SinglePost},
     {path: "/users/:id", component: Profile},
     {path: "/profile", component: Profile, beforeEnter: ifAuthenticated},
+    {path: "/posts/new", component: EditPost, beforeEnter: ifAuthenticated},
+    {path: "/posts/:id/edit", component: EditPost, beforeEnter: ifAuthenticated},
     {path: "/:pathMatch(.*)*", component: NotFound},
 ];
 
