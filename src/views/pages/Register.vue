@@ -1,37 +1,44 @@
 <template>
   <div>
     <h1>Register</h1>
-    <form @submit.prevent="handleSubmit">
+
+    <br/>
+
+    <div v-show="submitted" class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+
+    <form v-show="!submitted" @submit.prevent="handleSubmit">
       <label for="firstname">First name: </label>
       <input type="text" name="firstname" v-model="user.first_name"/>
-      <div v-show="submitted && !user.first_name">First name is required</div>
 
       <br/><br/>
 
       <label for="lastname">Last name: </label>
       <input type="text" name="lastname" v-model="user.last_name"/>
-      <div v-show="submitted && !user.last_name">Last name is required</div>
 
       <br/><br/>
 
       <label for="username">Username: </label>
       <input type="text" name="username" v-model="user.username"/>
-      <div v-show="submitted && !user.username">Username is required</div>
 
       <br/><br/>
 
       <label for="password">Password: </label>
       <input type="password" name="password" v-model="user.password"/>
-      <div v-show="submitted && !user.password">Password is required</div>
 
-      <button>Login</button>
-      <div v-if="error">{{error}}</div>
+      <br/><br/>
+
+      <button>Create account</button>
     </form>
+    <errorToast :error="this.error"/>
   </div>
 </template>
 
 <script>
 import {userService} from "@/services/user.service";
+import errorToast from "@/views/components/ErrorToast.vue";
+import Toast from "bootstrap/js/dist/toast";
 
 export default {
   data(){
@@ -50,9 +57,12 @@ export default {
     handleSubmit(e){
       this.submitted = true;
       this.error = "";
+      let toast = new Toast(document.getElementById('error-toast'));
       const {first_name, last_name, username, password} = this.user;
 
       if(!(first_name && last_name && username && password)){
+        this.error = "All fields are required";
+        toast.show();
         return;
       }
 
@@ -64,6 +74,7 @@ export default {
       const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$£!%*?&.,^#])[A-Za-z\d@$£!%*?&.,^#]{8,32}$/;
       if(!(passwordPattern.test(password))){
         this.error = "Password does not meet requirements";
+        toast.show();
         return;
       }
 
@@ -74,9 +85,13 @@ export default {
           })
           .catch(error => {
             this.error = error;
+            toast.show();
             this.submitted = false;
           })
     }
+  },
+  components: {
+    errorToast
   }
 }
 </script>

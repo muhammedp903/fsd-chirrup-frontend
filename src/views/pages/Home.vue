@@ -2,22 +2,19 @@
   <div>
     <h1>Home</h1>
 
-    <button @click="newPost">New Post</button>
+    <br/>
 
-    <em v-if="loading">Loading posts...</em>
+    <div v-if="loading" class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
 
-    <ul v-if="posts.length">
-      <li v-for="post in posts" :key="post.post_id">
-        <router-link :to="'/posts/' + post.post_id">
-          {{post.text}}
-        </router-link>
-      </li>
-    </ul>
+    <div v-if="posts.length">
+      <PostCard v-for="post in posts" :key="post.post_id" :post="post"/>
+    </div>
+
     <p v-else>Nothing to see here...</p>
 
     <hr/>
-
-    <Search/>
 
     <div v-if="error">{{error}}</div>
   </div>
@@ -25,7 +22,8 @@
 
 <script>
 import {postService} from "@/services/posts.service";
-import Search from "@/views/components/Search.vue";
+import PostCard from "@/views/components/PostCard.vue";
+import UserCard from "@/views/components/UserCard.vue";
 
 export default {
   data(){
@@ -48,9 +46,10 @@ export default {
     },
   },
   components: {
-    Search
-    }
+    UserCard,
+    PostCard
   }
+}
 </script>
 
 

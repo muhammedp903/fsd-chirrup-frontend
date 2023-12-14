@@ -1,29 +1,25 @@
 <template>
   <div>
-    <em v-if="user.loading">Loading user...</em>
+    <div v-if="user.loading" class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
 
     <div v-else>
-      <p>Name: {{user.first_name + " " + user.last_name}}</p>
+      <h1>{{user.first_name + " " + user.last_name}}</h1>
 
       <button v-if="!isCurrentUser && store.authenticated" @click="followAction">{{followButtonText}}</button>
 
       <button v-if="isCurrentUser" @click="newPost">New Post</button>
 
-      <ul v-if="user.posts.length">
-        <li v-for="post in user.posts" :key="post.post_id">
-          <router-link :to="'/posts/' + post.post_id">
-            {{post.text}}
-          </router-link>
-        </li>
-      </ul>
+      <br/><br/>
+
+      <div v-if="user.posts.length">
+        <PostCard v-for="post in user.posts" :key="post.post_id" :post="post"/>
+      </div>
       <p v-else>Nothing to see here...</p>
-<!--      <p>Posts: {{user.posts}}</p>-->
 
       <button v-if="isCurrentUser" @click="logout">Logout</button>
 
-<!--      <hr />-->
-<!--      <p>All user info</p>-->
-<!--      <p>{{user}}</p>-->
     </div>
 
     <div v-if="error">{{error}}</div>
@@ -34,9 +30,10 @@
 import {userService} from "@/services/user.service";
 import {store} from "@/services/store"
 import {socialService} from "@/services/social.service";
-import newPost from "@/views/pages/EditPost.vue";
+import PostCard from "@/views/components/PostCard.vue";
 
 export default {
+  components: {PostCard},
   data(){
     return {
       user: {},

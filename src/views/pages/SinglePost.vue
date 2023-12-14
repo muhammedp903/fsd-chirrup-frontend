@@ -1,6 +1,8 @@
 <template>
   <div>
-    <em v-if="post.loading">Loading post...</em>
+    <div v-if="post.loading" class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
 
     <div v-else>
       <router-link :to="'/users/' + post.author.user_id">
@@ -10,15 +12,15 @@
       <button v-if="isCurrentUserPost" @click="editPost">Edit</button>
       <button v-if="isCurrentUserPost" @click="deletePost">Delete</button>
 
-      <p>Text: {{post.text}}</p>
-      <p>Date: {{post.timestamp}}</p>
-      <p>Likes: {{post.likes.length}}</p>
+      <h5>{{post.text}}</h5>
+      <p>{{timestamp}}</p>
+      <p>{{post.likes.length}} likes</p>
 
       <button v-if="store.authenticated" @click="likeUnlikePost">{{likeButtonText}}</button>
 
-      <hr />
-      <p>All post info</p>
-      <p>{{post}}</p>
+<!--      <hr />-->
+<!--      <p>All post info</p>-->
+<!--      <p>{{post}}</p>-->
     </div>
 
     <div v-if="error">{{error}}</div>
@@ -42,6 +44,9 @@ export default {
     likeButtonText(){
       if(this.post.likes.some(like => like.user_id == localStorage.getItem("user_id"))) return "Unlike";
       return "Like";
+    },
+    timestamp(){
+      return new Date(this.post.timestamp).toLocaleString();
     }
   },
   created() {

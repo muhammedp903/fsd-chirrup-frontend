@@ -2,7 +2,7 @@
   <div>
     <Nav/>
     <br/>
-    <router-view/>
+    <router-view class="m-4"/>
   </div>
 </template>
 

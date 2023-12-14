@@ -8,13 +8,24 @@ import Profile from "@/views/pages/Profile.vue";
 import Register from "@/views/pages/Register.vue";
 import EditPost from "@/views/pages/EditPost.vue";
 
-const ifAuthenticated = (to, from, next) => {
+const ifAuthenticated = (to, from) => {
     const loggedIn = localStorage.getItem("session_token");
     if (loggedIn){
-        next();
         return;
     }
-    next("/login");
+    return "/login";
+};
+
+// check if current user before entering users/:id
+const ifCurrentUser = (to, from) => {
+    const loggedIn = localStorage.getItem("session_token");
+    if (loggedIn){
+        const userId = localStorage.getItem("user_id");
+        if (userId === to.params.id){
+            // change route to profile page
+            return "/profile";
+        }
+    }
 };
 
 const routes = [
@@ -22,7 +33,7 @@ const routes = [
     {path: "/login", component: Login},
     {path: "/register", component: Register},
     {path: "/posts/:id", component: SinglePost},
-    {path: "/users/:id", component: Profile},
+    {path: "/users/:id", component: Profile, beforeEnter: ifCurrentUser},
     {path: "/profile", component: Profile, beforeEnter: ifAuthenticated},
     {path: "/posts/new", component: EditPost, beforeEnter: ifAuthenticated},
     {path: "/posts/:id/edit", component: EditPost, beforeEnter: ifAuthenticated},
