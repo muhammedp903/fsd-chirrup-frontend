@@ -31,6 +31,11 @@ export default {
 .card{
   text-decoration: none;
 }
+@media (max-width: 768px) {
+  .card-title{
+    font-size: 1em;
+  }
+}
 .card:hover{
   border-color: #808080;
   background-color: #f0f0f0;
