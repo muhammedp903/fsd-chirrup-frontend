@@ -5,10 +5,15 @@
         <h5 class="card-title">{{post.text}}</h5>
       </div>
       <div class="card-footer bg-transparent">
-        <router-link :to="'/users/' + post.author.user_id" id="author">
+        <router-link :to="'/users/' + post.author.user_id" id="author" >
           {{"@" + post.author.username }}
         </router-link>
-        {{post.likes.length + " likes" }}
+
+        <span class="likes" @click="likeUnlikePost">
+          <i v-if="likeButtonState" class="bi bi-heart-fill"></i>
+          <i v-else class="bi bi-heart"></i>
+          {{post.likes.length}}
+        </span>
       </div>
     </div>
   </router-link>
@@ -28,6 +33,8 @@ export default {
 </script>
 
 <style scoped>
+@import url('bootstrap-icons/font/bootstrap-icons.css');
+
 .card{
   text-decoration: none;
 }
