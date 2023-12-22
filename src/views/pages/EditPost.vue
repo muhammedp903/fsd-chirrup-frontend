@@ -4,7 +4,6 @@
     <form @submit.prevent="handleSubmit">
       <textarea name="text" id="text" v-model="post.text"></textarea>
       <button>Post</button>
-      <div v-if="error">{{error}}</div>
     </form>
   </div>
 </template>
@@ -24,7 +23,6 @@ export default {
       post: {},
       editing: false,
       submitted: false,
-      error: "",
     };
   },
   created() {
@@ -35,13 +33,15 @@ export default {
           .then((post) => {
             this.post = post;
           })
-          .catch(error => this.error = error);
+          .catch((error) => {
+            this.$root.error = error;
+            this.$root.toast.show();
+          });
     }
   },
   methods: {
     handleSubmit() {
       this.submitted = true;
-      this.error = "";
       const text = this.post.text;
 
       if (!text) {
@@ -54,7 +54,8 @@ export default {
               this.$router.push("/posts/" + this.post.post_id);
             })
             .catch(error => {
-              this.error = error;
+              this.$root.error = error;
+              this.$root.toast.show();
               this.submitted = false;
             });
 
@@ -64,7 +65,8 @@ export default {
               this.$router.push("/profile");
             })
             .catch(error => {
-              this.error = error;
+              this.$root.error = error;
+              this.$root.toast.show();
               this.submitted = false;
             });
       }

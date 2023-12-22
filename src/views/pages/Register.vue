@@ -31,14 +31,11 @@
 
       <button>Create account</button>
     </form>
-    <errorToast :error="this.error"/>
   </div>
 </template>
 
 <script>
 import {userService} from "@/services/user.service";
-import errorToast from "@/views/components/ErrorToast.vue";
-import Toast from "bootstrap/js/dist/toast";
 
 export default {
   data(){
@@ -50,19 +47,16 @@ export default {
         password: "",
       },
       submitted: false,
-      error: ""
     };
   },
   methods: {
     handleSubmit(e){
       this.submitted = true;
-      this.error = "";
-      let toast = new Toast(document.getElementById('error-toast'));
       const {first_name, last_name, username, password} = this.user;
 
       if(!(first_name && last_name && username && password)){
-        this.error = "All fields are required";
-        toast.show();
+        this.$root.error = "All fields are required";
+        this.$root.toast.show();
         return;
       }
 
@@ -73,8 +67,8 @@ export default {
       // }
       const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$£!%*?&.,^#])[A-Za-z\d@$£!%*?&.,^#]{8,32}$/;
       if(!(passwordPattern.test(password))){
-        this.error = "Password does not meet requirements";
-        toast.show();
+        this.$root.error = "Password does not meet requirements";
+        this.$root.toast.show();
         return;
       }
 
@@ -84,15 +78,12 @@ export default {
             this.$router.push("/login");
           })
           .catch(error => {
-            this.error = error;
-            toast.show();
+            this.$root.error = error;
+            this.$root.toast.show();
             this.submitted = false;
           })
     }
   },
-  components: {
-    errorToast
-  }
 }
 </script>
 

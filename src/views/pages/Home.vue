@@ -16,7 +16,6 @@
 
     <hr/>
 
-    <div v-if="error">{{error}}</div>
   </div>
 </template>
 
@@ -29,7 +28,6 @@ export default {
   data(){
     return {
       posts: [],
-      error: "",
       loading: true,
     };
   },

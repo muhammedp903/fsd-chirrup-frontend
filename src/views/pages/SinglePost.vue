@@ -1,12 +1,14 @@
 <template>
-  <div>
+  <div class="mt-4">
     <div v-if="post.loading" class="spinner-border" role="status">
       <span class="visually-hidden">Loading...</span>
     </div>
 
     <div v-else>
+      <h3>{{post.author.first_name + " " + post.author.last_name}}</h3>
+
       <router-link :to="'/users/' + post.author.user_id">
-        <h3>{{post.author.first_name + " " + post.author.last_name}}</h3>
+        <h4>@{{post.author.username}}</h4>
       </router-link>
 
       <button v-if="isCurrentUserPost" @click="editPost">Edit</button>
@@ -15,7 +17,7 @@
       <h5>{{post.text}}</h5>
       <p>{{timestamp}}</p>
 
-      <span class="likes" @click="likeUnlikePost">
+      <span class="btn likes" @click="likeUnlikePost">
         <i v-if="likeButtonState" class="bi bi-heart-fill"></i>
         <i v-else class="bi bi-heart"></i>
         {{post.likes.length}}
@@ -26,18 +28,14 @@
 <!--      <p>{{post}}</p>-->
     </div>
 
-    <errorToast :error="this.error"/>
   </div>
 </template>
 
 <script>
 import {postService} from "@/services/posts.service";
 import {store} from "@/services/store";
-import Toast from "bootstrap/js/dist/toast";
-import errorToast from "@/views/components/ErrorToast.vue";
 
 export default {
-  components: {errorToast},
   data(){
     return {
       post: {},
@@ -59,8 +57,6 @@ export default {
   },
   methods: {
     getPost(){
-      this.error = "";
-      let toast = new Toast(document.getElementById('error-toast'));
       this.post.loading = true;
 
       postService.getSinglePost(this.$route.params.id)
@@ -72,31 +68,28 @@ export default {
             this.post.loading = false;
           })
           .catch((error) => {
-            this.error = error;
-            toast.show();
+            this.$root.error = error;
+            this.$root.toast.show();
           })
     },
     editPost(){
       this.$router.push(`/posts/${this.post.post_id}/edit`);
     },
     deletePost(){
-      this.error = "";
-      let toast = new Toast(document.getElementById('error-toast'));
       postService.deletePost(this.post.post_id)
           .then(() => {
             this.$router.push("/profile");
           })
           .catch((error) => {
-            this.error = error;
-            toast.show();
+            this.$root.error = error;
+            this.$root.toast.show();
           })
     },
     likeUnlikePost(){
       this.error = "";
-      let toast = new Toast(document.getElementById('error-toast'));
       if(!store.authenticated){
-        this.error = "Sign in to like a post";
-        toast.show();
+        this.$root.error = "Sign in to like a post";
+        this.$root.toast.show();
         return;
       }
       if(!this.post.likes.some(like => like.user_id == localStorage.getItem("user_id"))){
@@ -104,16 +97,19 @@ export default {
             .then(() => {
               this.getPost();
             })
-            .catch(error => this.error = error);
+            .catch((error) => {
+              this.$root.error = error;
+              this.$root.toast.show();
+            });
       } else {
         postService.unlikePost(this.post.post_id)
             .then(() => {
               this.getPost();
             })
             .catch((error) => {
-              this.error = error;
-              toast.show();
-            })
+              this.$root.error = error;
+              this.$root.toast.show();
+            });
       }
     },
   },
@@ -122,5 +118,7 @@ export default {
 
 <style scoped>
 @import url('bootstrap-icons/font/bootstrap-icons.css');
-
+.likes:hover{
+  scale: 1.1;
+}
 </style>

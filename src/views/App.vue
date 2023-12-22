@@ -15,17 +15,31 @@
     </div>
   </div>
 
+  <errorToast :error="this.error"/>
+
 </template>
 
 <script>
 import Nav from "@/views/components/Nav.vue";
 import Search from "@/views/components/Search.vue";
+import errorToast from "@/views/components/ErrorToast.vue";
+import Toast from "bootstrap/js/dist/toast";
 
 export default {
   components: {
+    errorToast,
     Nav,
     Search
-  }
+  },
+  mounted() {
+    this.toast = new Toast(document.getElementById('error-toast'));
+  },
+  data() {
+    return {
+      error: "",
+      toast: null,
+    };
+  },
 }
 </script>
 

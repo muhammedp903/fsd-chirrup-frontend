@@ -21,8 +21,6 @@
       <button v-if="isCurrentUser" @click="logout">Logout</button>
 
     </div>
-
-    <div v-if="error">{{error}}</div>
   </div>
 </template>
 
@@ -39,7 +37,6 @@ export default {
       user: {},
       isCurrentUser: false,
       isFollowing: false,
-      error: "",
       store
     };
   },
@@ -70,7 +67,10 @@ export default {
             this.isFollowing = true;
           }
         })
-        .catch(error => this.error = error);
+        .catch((error) => {
+          this.$root.error = error;
+          this.$root.toast.show();
+        });
   },
   methods: {
     newPost() {
@@ -82,7 +82,10 @@ export default {
             this.$router.replace("/");
             store.authenticated = false;
           })
-          .catch(error => this.error = error);
+          .catch((error) => {
+            this.$root.error = error;
+            this.$root.toast.show();
+          });
     },
     followAction(){
       if(this.isFollowing){
@@ -90,13 +93,19 @@ export default {
             .then(() => {
               this.isFollowing = false;
             })
-            .catch(error => this.error = error);
+            .catch((error) => {
+              this.$root.error = error;
+              this.$root.toast.show();
+            });
       } else {
         socialService.followUser(this.user.user_id)
             .then(() => {
               this.isFollowing = true;
             })
-            .catch(error => this.error = error);
+            .catch((error) => {
+              this.$root.error = error;
+              this.$root.toast.show();
+            });
       }
     },
 
