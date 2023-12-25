@@ -1,9 +1,11 @@
 <template>
   <div>
     <h1>{{ titleText }}</h1>
+    <br/>
     <form @submit.prevent="handleSubmit">
-      <textarea name="text" id="text" v-model="post.text"></textarea>
-      <button>Post</button>
+      <textarea class="form-control" name="text" id="text" v-model="post.text"></textarea>
+      <br/>
+      <button class="btn btn-primary">Post</button>
     </form>
   </div>
 </template>

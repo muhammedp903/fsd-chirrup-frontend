@@ -18,7 +18,7 @@
           </form>
           <br/>
           <div v-if="searchResults.length">
-            <UserCard v-for="user in searchResults" :key="user.user_id" :user="user"/>
+            <UserCard @click="clearSearch" v-for="user in searchResults" :key="user.user_id" :user="user"/>
           </div>
         </div>
       </div>
@@ -46,6 +46,10 @@ export default {
             this.searchResults = res;
           })
           .catch(error => this.error = error);
+    },
+    clearSearch(){
+      this.searchResults = [];
+      this.searchString = "";
     }
   },
   components: {

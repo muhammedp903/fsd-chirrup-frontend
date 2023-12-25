@@ -10,9 +10,7 @@
       <router-link :to="'/users/' + post.author.user_id">
         <h4>@{{post.author.username}}</h4>
       </router-link>
-
-      <button v-if="isCurrentUserPost" @click="editPost">Edit</button>
-      <button v-if="isCurrentUserPost" @click="deletePost">Delete</button>
+      <br/>
 
       <h5>{{post.text}}</h5>
       <p>{{timestamp}}</p>
@@ -23,9 +21,12 @@
         {{post.likes.length}}
       </span>
 
-<!--      <hr />-->
-<!--      <p>All post info</p>-->
-<!--      <p>{{post}}</p>-->
+      <br/><br/>
+      <span class="edit" v-if="isCurrentUserPost">
+        <button class="btn btn-secondary me-2" @click="editPost">Edit</button>
+        <button class="btn btn-danger" @click="deletePost">Delete</button>
+      </span>
+
     </div>
 
   </div>
