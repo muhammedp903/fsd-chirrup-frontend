@@ -9,19 +9,26 @@
 
       <h4>@{{user.username}}</h4>
 
-      <span class="followers">
-        <i class="bi bi-people-fill"></i>
-        {{"&nbsp" + user.followers.length}}
+      <span class="flexSpan">
+        <span class="followers">
+          <i class="bi bi-people-fill"></i>
+          {{"&nbsp" + user.followers.length}}
 
-        <span class="btn followUnfollow" v-if="store.authenticated" @click="followAction">
-          <i v-if="isFollowing" class="bi bi-person-fill-dash"></i>
-          <i v-else class="bi bi-person-fill-add"></i>
-          {{isFollowing ? "Unfollow" : "Follow"}}
+          <span class="btn followUnfollow" v-if="store.authenticated" @click="followAction">
+            <i v-if="isFollowing" class="bi bi-person-fill-dash"></i>
+            <i v-else class="bi bi-person-fill-add"></i>
+            {{isFollowing ? "Unfollow" : "Follow"}}
+          </span>
         </span>
+
+        <button class="btn btn-danger" @click="logout">Logout</button>
       </span>
 
-      <br/>
-      <button class="btn btn-primary" @click="newPost">New Post</button>
+      <br/><br/>
+      <span class="postsTitle">
+        My Posts &nbsp
+        <button class="btn btn-outline-primary" @click="newPost">New Post</button>
+      </span>
 
       <br/><br/>
 
@@ -29,8 +36,6 @@
         <PostCard v-for="post in user.posts" :key="post.post_id" :post="post"/>
       </div>
       <p v-else>Nothing to see here...</p>
-
-      <button class="btn btn-danger" @click="logout">Logout</button>
 
     </div>
   </div>
@@ -112,16 +117,24 @@ export default {
 </script>
 
 <style scoped>
-@import url('bootstrap-icons/font/bootstrap-icons.css');
-.followers{
-  font-size: larger;
-  display: inline-flex;
-  align-items: center;
-}
-.followUnfollow{
-  font-size: 100%;
-}
-.followUnfollow:hover{
-  scale: 1.1;
-}
+  @import url('bootstrap-icons/font/bootstrap-icons.css');
+  .followers{
+    font-size: larger;
+    display: inline-flex;
+    align-items: center;
+  }
+  .followUnfollow{
+    font-size: 100%;
+  }
+  .followUnfollow:hover{
+    scale: 1.1;
+  }
+  .flexSpan{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .postsTitle{
+    font-size: x-large;
+  }
 </style>

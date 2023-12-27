@@ -76,31 +76,31 @@ export default {
 </script>
 
 <style scoped>
-@import url('bootstrap-icons/font/bootstrap-icons.css');
+  @import url('bootstrap-icons/font/bootstrap-icons.css');
 
-#postText{
-  text-decoration: none;
-  color: #000;
-}
-@media (max-width: 768px) {
-  .card-title{
-    font-size: 1em;
+  #postText{
+    text-decoration: none;
+    color: #000;
   }
-}
-.card-footer{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.card-body:hover{
-  border-color: #808080;
-  background-color: #f0f0f0;
-}
-#author:hover{
-  font-weight: bold;
-}
-.likes:hover{
-  scale: 1.1;
+  @media (max-width: 768px) {
+    .card-title{
+      font-size: 1em;
+    }
+  }
+  .card-footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .card-body:hover{
+    border-color: #808080;
+    background-color: #f0f0f0;
+  }
+  #author:hover{
+    font-weight: bold;
+  }
+  .likes:hover{
+    scale: 1.1;
 
-}
+  }
 </style>

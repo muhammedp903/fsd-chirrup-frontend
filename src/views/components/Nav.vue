@@ -56,15 +56,15 @@ export default {
 </script>
 
 <style scoped>
-@import url('bootstrap-icons/font/bootstrap-icons.css');
-button{
-  background-color: transparent;
-  border: none;
-}
-i{
-  font-size: 3vw;
-}
-.offcanvas-lg{
-  --bs-offcanvas-width: 250px;
-}
+  @import url('bootstrap-icons/font/bootstrap-icons.css');
+  button{
+    background-color: transparent;
+    border: none;
+  }
+  i{
+    font-size: 3vw;
+  }
+  .offcanvas-lg{
+    --bs-offcanvas-width: 250px;
+  }
 </style>

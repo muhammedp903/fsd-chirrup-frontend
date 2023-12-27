@@ -10,7 +10,7 @@
       </div>
 
       <div class="col-1 col-lg-3">
-        <Search/>
+        <Search v-if="this.$route.path==='/'"/> <!-- Only show the search bar on the home page -->
       </div>
     </div>
   </div>

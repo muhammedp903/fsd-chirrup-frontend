@@ -12,13 +12,13 @@
 
       <div class="offcanvas-body">
         <div>
-          <form v-if="this.$route.path==='/'" class="d-flex" role="search" @submit.prevent="handleSearch">
+          <form class="d-flex" role="search" @submit.prevent="handleSearch">
             <input class="form-control me-2" type="search" placeholder="Search users" name="Search" aria-label="Search" v-model="searchString"/>
             <button class="btn btn-outline-success" type="submit" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSearch" aria-controls="offcanvasSearch">Search</button>
           </form>
           <br/>
           <div v-if="searchResults.length">
-            <UserCard @click="clearSearch" v-for="user in searchResults" :key="user.user_id" :user="user"/>
+            <UserCard v-for="user in searchResults" :key="user.user_id" :user="user"/>
           </div>
         </div>
       </div>
@@ -37,8 +37,6 @@ export default {
       searchResults: []
     }
   },
-  mounted() {
-  },
   methods: {
     handleSearch(){
       socialService.searchUsers(this.searchString)
@@ -47,10 +45,6 @@ export default {
           })
           .catch(error => this.error = error);
     },
-    clearSearch(){
-      this.searchResults = [];
-      this.searchString = "";
-    }
   },
   components: {
     UserCard,
@@ -59,14 +53,14 @@ export default {
 </script>
 
 <style scoped>
-@import url('bootstrap-icons/font/bootstrap-icons.css');
-button{
-  border: none;
-  background-color: transparent;
-  align-self: start;
-}
-i{
-  font-size: 3vw;
-  align-self: start;
-}
+  @import url('bootstrap-icons/font/bootstrap-icons.css');
+  button{
+    border: none;
+    background-color: transparent;
+    align-self: start;
+  }
+  i{
+    font-size: 3vw;
+    align-self: start;
+  }
 </style>

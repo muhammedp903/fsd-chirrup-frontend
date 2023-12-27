@@ -5,7 +5,7 @@
     <form @submit.prevent="handleSubmit">
       <textarea class="form-control" name="text" id="text" v-model="post.text"></textarea>
       <br/>
-      <button class="btn btn-primary">Post</button>
+      <button class="btn btn-outline-primary">Post</button>
     </form>
   </div>
 </template>

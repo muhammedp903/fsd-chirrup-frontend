@@ -23,8 +23,8 @@
 
       <br/><br/>
       <span class="edit" v-if="isCurrentUserPost">
-        <button class="btn btn-secondary me-2" @click="editPost">Edit</button>
-        <button class="btn btn-danger" @click="deletePost">Delete</button>
+        <button class="btn btn-outline-secondary me-2" @click="editPost">Edit</button>
+        <button class="btn btn-outline-danger" @click="deletePost">Delete</button>
       </span>
 
     </div>
@@ -118,8 +118,8 @@ export default {
 </script>
 
 <style scoped>
-@import url('bootstrap-icons/font/bootstrap-icons.css');
-.likes:hover{
-  scale: 1.1;
-}
+  @import url('bootstrap-icons/font/bootstrap-icons.css');
+  .likes:hover{
+    scale: 1.1;
+  }
 </style>

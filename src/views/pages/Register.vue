@@ -8,29 +8,41 @@
       <span class="visually-hidden">Loading...</span>
     </div>
 
-    <form v-show="!submitted" @submit.prevent="handleSubmit">
-      <label for="firstname">First name: </label>
-      <input type="text" name="firstname" v-model="user.first_name"/>
+    <div class="row" v-show="!submitted">
+      <div class="col-md-6">
+        <form @submit.prevent="handleSubmit">
+          <label class="form-label" for="firstname">First name: </label>
+          <input class="form-control" type="text" name="firstname" v-model="user.first_name"/>
 
-      <br/><br/>
+          <br/>
 
-      <label for="lastname">Last name: </label>
-      <input type="text" name="lastname" v-model="user.last_name"/>
+          <label class="form-label" for="lastname">Last name: </label>
+          <input class="form-control" type="text" name="lastname" v-model="user.last_name"/>
 
-      <br/><br/>
+          <br/><br/>
 
-      <label for="username">Username: </label>
-      <input type="text" name="username" v-model="user.username"/>
+          <label class="form-label" for="username">Username: </label>
+          <input class="form-control" type="text" name="username" v-model="user.username"/>
 
-      <br/><br/>
+          <br/>
 
-      <label for="password">Password: </label>
-      <input type="password" name="password" v-model="user.password"/>
+          <label class="form-label" for="password">Password: </label>
+          <input class="form-control" type="password" name="password" v-model="user.password"/>
 
-      <br/><br/>
+          <br/><br/>
 
-      <button>Create account</button>
-    </form>
+          <button class="btn btn-outline-primary">Create account</button>
+        </form>
+      </div>
+
+      <div class="col-md-6 pt-4 ps-md-5">
+        <span class="passwordHintSpan">
+          Password must be 8-32 characters and contain at least one uppercase and one lowercase letter, one number, and one special character.
+        </span>
+      </div>
+    </div>
+
+
   </div>
 </template>
 
@@ -57,6 +69,7 @@ export default {
       if(!(first_name && last_name && username && password)){
         this.$root.error = "All fields are required";
         this.$root.toast.show();
+        this.submitted = false;
         return;
       }
 
@@ -69,6 +82,7 @@ export default {
       if(!(passwordPattern.test(password))){
         this.$root.error = "Password does not meet requirements";
         this.$root.toast.show();
+        this.submitted = false;
         return;
       }
 
@@ -88,5 +102,9 @@ export default {
 </script>
 
 <style scoped>
-
+  @media (max-width: 768px) {
+    .passwordHintSpan{
+      font-size: 80%;
+    }
+  }
 </style>
