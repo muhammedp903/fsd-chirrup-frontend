@@ -13,9 +13,12 @@
           <i v-else class="bi bi-heart"></i>
           {{post.likes.length}}
         </span>
-        <router-link :to="'/users/' + post.author.user_id" id="author" >
-          {{"@" + post.author.username }}
-        </router-link>
+        <span class="author">
+          {{timestamp}} &nbsp
+          <router-link :to="'/users/' + post.author.user_id" id="author" >
+            {{"@" + post.author.username }}
+          </router-link>
+        </span>
       </div>
     </div>
 
@@ -109,6 +112,11 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+  @media (max-width: 768px) {
+    .author {
+      font-size: 70%;
+    }
   }
   .card-body:hover{
     border-color: #808080;

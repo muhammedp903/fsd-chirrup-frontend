@@ -52,6 +52,8 @@ export default {
     socialService.getUser(id)
         .then((user) => {
           this.user = user;
+          this.user.posts.sort((a, b) => b.timestamp - a.timestamp); // sort posts by timestamp to display chronologically
+          
           let uid = localStorage.getItem("user_id");
           if(user.followers.some(e => e.user_id == uid)) { // check if the signed-in user is in the followers list of this user
             this.isFollowing = true;

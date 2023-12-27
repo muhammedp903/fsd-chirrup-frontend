@@ -68,11 +68,13 @@ export default {
             this.isFollowing = true;
           }
 
+          this.user.posts.sort((a, b) => b.timestamp - a.timestamp); // sort posts by timestamp to display chronologically
+
           let drafts = JSON.parse(localStorage.getItem("drafts"));
           if(drafts) {
             drafts.drafts.forEach(draft => {
               draft.draftId = drafts.drafts.indexOf(draft);
-              this.user.posts.push(draft);
+              this.user.posts.unshift(draft); // add drafts to the start of the posts list so they are displayed first
             });
           }
 

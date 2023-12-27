@@ -38,11 +38,7 @@ export default {
             this.loading = false;
           });
   },
-  methods: {
-    newPost() {
-      this.$router.push("/posts/new");
-    },
-  },
+
   components: {
     UserCard,
     PostCard
