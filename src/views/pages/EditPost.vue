@@ -6,9 +6,11 @@
       <textarea class="form-control" name="text" id="text" v-model="post.text"></textarea>
       <br/>
       <span>
-        <button class="btn btn-outline-primary">Post</button>
+        <button class="btn btn-outline-primary" id="postButton">Post</button>
         &nbsp
-        <button class="btn btn-outline-secondary" v-show="!editing" @click="saveDraft">Save Draft</button>
+        <button class="btn btn-outline-secondary" id="draftButton">Save Draft</button>
+        &nbsp
+        <button class="btn btn-outline-danger" id="deleteDraftButton" v-show="draft">Delete Draft</button>
       </span>
     </form>
   </div>
@@ -35,7 +37,7 @@ export default {
   },
   created() {
     if(this.$route.path !== "/posts/new"){
-      // the path will be /posts/:id/edit - the user is editing an existing post or draft
+      // the user is editing an existing post or draft
       this.editing = true;
 
       if(!this.$route.path.includes("draft")){
@@ -56,15 +58,34 @@ export default {
     }
   },
   methods: {
-    handleSubmit() {
+    handleSubmit(event) {
       this.submitted = true;
+      let submitter = event.submitter.id;
+
+      if(submitter === "postButton"){
+        this.createPost();
+      } else if(submitter === "draftButton"){
+        this.saveDraft();
+      } else if(submitter === "deleteDraftButton"){
+        this.deleteDraft();
+        this.$router.push("/profile");
+      }
+    },
+
+    deleteDraft(){
+      let drafts = JSON.parse(localStorage.getItem("drafts"));
+      drafts.drafts.splice(this.$route.params.id, 1); // remove the current draft from the local drafts list
+      localStorage.setItem("drafts", JSON.stringify(drafts));
+    },
+
+    createPost(){
       const text = this.post.text;
 
       if (!text) {
         return;
       }
 
-      if(this.editing){
+      if(this.editing && !this.draft){
         postService.editPost(this.post.post_id, text)
             .then(() => {
               this.$router.push("/posts/" + this.post.post_id);
@@ -78,6 +99,7 @@ export default {
       } else {
         postService.newPost(text)
             .then(() => {
+              this.deleteDraft();
               this.$router.push("/profile");
             })
             .catch(error => {
@@ -87,8 +109,8 @@ export default {
             });
       }
     },
+
     saveDraft(){
-      this.submitted = true;
       const text = this.post.text;
 
       if (!text) {
@@ -103,7 +125,11 @@ export default {
 
       let drafts = JSON.parse(localStorage.getItem("drafts"));
       if(drafts){
-        drafts.drafts.push(currentDraft); // add the new draft to the existing drafts list
+        if(this.draft){
+          drafts[this.$route.params.id] = currentDraft; // replace the old draft with the current one
+        } else{
+          drafts.drafts.push(currentDraft); // add the new draft to the existing drafts list
+        }
       } else {
         drafts = {drafts: [currentDraft]}; // create a new drafts object with a list of drafts and add the new one
       }

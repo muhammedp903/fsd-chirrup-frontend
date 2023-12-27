@@ -28,7 +28,7 @@
 
       <div class="card-footer bg-transparent">
         <span class="draftLabel">
-          Draft
+          Draft post. Open to edit or publish
         </span>
       </div>
     </div>
@@ -95,6 +95,10 @@ export default {
   #postText{
     text-decoration: none;
     color: #000;
+  }
+  #postTextDraft{
+    text-decoration: none;
+    color: grey;
   }
   @media (max-width: 768px) {
     .card-title{
