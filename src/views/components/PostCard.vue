@@ -1,6 +1,6 @@
 <template>
   <div class="card mb-3" >
-    <div>
+    <div v-if="!post.draft">
       <router-link id="postText" :to="'/posts/' + post.post_id">
         <div class="card-body">
           <h5 class="card-title">{{post.text}}</h5>
@@ -16,6 +16,20 @@
         <router-link :to="'/users/' + post.author.user_id" id="author" >
           {{"@" + post.author.username }}
         </router-link>
+      </div>
+    </div>
+
+    <div v-else>
+      <router-link id="postTextDraft" :to="'/posts/draft/' + post.draftId + '/edit'">
+        <div class="card-body">
+          <h5 class="card-title">{{post.text}}</h5>
+        </div>
+      </router-link>
+
+      <div class="card-footer bg-transparent">
+        <span class="draftLabel">
+          Draft
+        </span>
       </div>
     </div>
   </div>

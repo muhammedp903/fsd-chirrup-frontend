@@ -67,6 +67,15 @@ export default {
           if(user.followers.some(e => e.user_id == uid)) { // check if the signed-in user is in the followers list of this user
             this.isFollowing = true;
           }
+
+          let drafts = JSON.parse(localStorage.getItem("drafts"));
+          if(drafts) {
+            drafts.drafts.forEach(draft => {
+              draft.draftId = drafts.drafts.indexOf(draft);
+              this.user.posts.push(draft);
+            });
+          }
+
         })
         .catch((error) => {
           this.$root.error = error;

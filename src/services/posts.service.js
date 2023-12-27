@@ -192,7 +192,7 @@ const deletePost = (postId) => {
             return Promise.reject(error);
         });
 
-}
+};
 
 export const postService = {
     getFeed,

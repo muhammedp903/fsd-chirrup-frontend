@@ -37,6 +37,7 @@ const routes = [
     {path: "/users/:id", component: UserProfile, beforeEnter: ifCurrentUser},
     {path: "/profile", component: MyProfile, beforeEnter: ifAuthenticated},
     {path: "/posts/new", component: EditPost, beforeEnter: ifAuthenticated},
+    {path: "/posts/draft/:id/edit", component: EditPost, beforeEnter: ifAuthenticated},
     {path: "/posts/:id/edit", component: EditPost, beforeEnter: ifAuthenticated},
     {path: "/:pathMatch(.*)*", component: NotFound},
 ];
