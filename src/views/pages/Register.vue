@@ -8,40 +8,41 @@
       <span class="visually-hidden">Loading...</span>
     </div>
 
-    <div class="row" v-show="!submitted">
-      <div class="col-md-6">
-        <form @submit.prevent="handleSubmit">
-          <label class="form-label" for="firstname">First name: </label>
-          <input class="form-control" type="text" name="firstname" v-model="user.first_name"/>
+    <div class="container">
+      <div class="row" v-show="!submitted">
+        <div class="col-md-6">
+          <form @submit.prevent="handleSubmit">
+            <label class="form-label" for="firstname">First name: </label>
+            <input class="form-control" type="text" name="firstname" v-model="user.first_name"/>
 
-          <br/>
+            <br/>
 
-          <label class="form-label" for="lastname">Last name: </label>
-          <input class="form-control" type="text" name="lastname" v-model="user.last_name"/>
+            <label class="form-label" for="lastname">Last name: </label>
+            <input class="form-control" type="text" name="lastname" v-model="user.last_name"/>
 
-          <br/><br/>
+            <br/><br/>
 
-          <label class="form-label" for="username">Username: </label>
-          <input class="form-control" type="text" name="username" v-model="user.username"/>
+            <label class="form-label" for="username">Username: </label>
+            <input class="form-control" type="text" name="username" v-model="user.username"/>
 
-          <br/>
+            <br/>
 
-          <label class="form-label" for="password">Password: </label>
-          <input class="form-control" type="password" name="password" v-model="user.password"/>
+            <label class="form-label" for="password">Password: </label>
+            <input class="form-control" type="password" name="password" v-model="user.password"/>
 
-          <br/><br/>
+            <br/><br/>
 
-          <button class="btn btn-outline-primary">Create account</button>
-        </form>
-      </div>
+            <button class="btn btn-outline-primary">Create account</button>
+          </form>
+        </div>
 
-      <div class="col-md-6 pt-4 ps-md-5">
-        <span class="passwordHintSpan">
-          Password must be 8-32 characters and contain at least one uppercase and one lowercase letter, one number, and one special character.
-        </span>
+        <div class="col-md-6 pt-4 ps-md-5">
+          <span class="passwordHintSpan">
+            Password must be 8-32 characters and contain at least one uppercase and one lowercase letter, one number, and one special character.
+          </span>
+        </div>
       </div>
     </div>
-
 
   </div>
 </template>

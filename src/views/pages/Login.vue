@@ -27,9 +27,9 @@
           </div>
 
           <div class="col-md-6 pt-4 ps-md-5">
-          <span class="passwordHintSpan">
-              Password must be 8-32 characters and contain at least one uppercase and one lowercase letter, one number, and one special character.
-          </span>
+            <span class="passwordHintSpan">
+                Password must be 8-32 characters and contain at least one uppercase and one lowercase letter, one number, and one special character.
+            </span>
           </div>
         </div>
       </div>
