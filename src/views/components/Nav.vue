@@ -12,20 +12,21 @@
 
       <div class="nav flex-column offcanvas-body">
         <ol class="nav navbar-nav me-auto mb-2 mb-md-0 justify-content-start flex-grow-1 ps-3">
-          <li class="nav-item">
+          <li class="nav-item btn">
             <router-link class="nav-link" to="/">Home</router-link>
           </li>
-          <li class="nav-item">
-            <router-link class="nav-link" v-if="store.authenticated" to="/posts/new">Post</router-link>
+          <li class="nav-item btn" v-if="store.authenticated">
+            <router-link class="nav-link" to="/posts/new">Post</router-link>
           </li>
-          <li class="nav-item">
-            <router-link class="nav-link" v-if="!store.authenticated" to="/login">Login</router-link>
+          <li><br/></li>
+          <li class="nav-item btn" v-if="!store.authenticated">
+            <router-link class="nav-link" to="/login">Login</router-link>
           </li>
-          <li class="nav-item">
-            <router-link class="nav-link" v-if="!store.authenticated" to="/register">Register</router-link>
+          <li class="nav-item btn" v-if="!store.authenticated">
+            <router-link class="nav-link" to="/register">Register</router-link>
           </li>
-          <li class="nav-item">
-            <router-link class="nav-link" v-if="store.authenticated" to="/profile">Profile</router-link>
+          <li class="nav-item btn" v-if="store.authenticated">
+            <router-link class="nav-link" to="/profile">Profile</router-link>
           </li>
         </ol>
       </div>
@@ -66,5 +67,16 @@ export default {
   }
   .offcanvas-lg{
     --bs-offcanvas-width: 250px;
+  }
+  .nav-link{
+    font-size: larger;
+    font-weight: bold;
+  }
+  .nav-item{
+    text-align: start;
+  }
+  .nav-item:hover{
+    background-color: #e9ecef;
+    scale: 1.1;
   }
 </style>
