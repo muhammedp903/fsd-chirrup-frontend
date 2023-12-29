@@ -83,7 +83,7 @@ export default {
       }
 
       userService.createUser(this.user)
-          .then(result => {
+          .then(() => {
             console.log("Register successful");
             this.$router.push("/login");
           })
