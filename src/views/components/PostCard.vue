@@ -1,5 +1,6 @@
 <template>
   <div class="card mb-3" >
+<!--    For normal posts:-->
     <div v-if="!post.draft">
       <router-link id="postText" :to="'/posts/' + post.post_id">
         <div class="card-body">
@@ -13,6 +14,7 @@
           <i v-else class="bi bi-heart"></i>
           {{post.likes.length}}
         </span>
+
         <span class="author">
           {{ timeSince }} &nbsp
           <router-link :to="'/users/' + post.author.user_id" id="author" >
@@ -22,6 +24,7 @@
       </div>
     </div>
 
+<!--    For draft posts:-->
     <div v-else>
       <router-link id="postTextDraft" :to="'/posts/draft/' + post.draftId + '/edit'">
         <div class="card-body">
@@ -57,6 +60,7 @@ export default {
       return this.post.likes.some(like => like.user_id == localStorage.getItem("user_id"));
     },
     timeSince(){
+      // Calculate time since post was created and relevant unit
       let timeSince = Date.now() - new Date(this.post.timestamp).getTime();
       let timeSinceInMinutes = Math.floor(timeSince / 60000);
       if(timeSinceInMinutes < 1){

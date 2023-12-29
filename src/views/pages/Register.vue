@@ -63,7 +63,7 @@ export default {
     };
   },
   methods: {
-    handleSubmit(e){
+    handleSubmit(){
       this.submitted = true;
       const {first_name, last_name, username, password} = this.user;
 
@@ -74,11 +74,6 @@ export default {
         return;
       }
 
-      // todo: validate firstname, lastname, username
-      // if(!(EmailValidator.validate(username))){
-      //   this.error = "Email must be a valid email";
-      //   return;
-      // }
       const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$£!%*?&.,^#])[A-Za-z\d@$£!%*?&.,^#]{8,32}$/;
       if(!(passwordPattern.test(password))){
         this.$root.error = "Password does not meet requirements";

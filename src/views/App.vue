@@ -15,7 +15,7 @@
     </div>
   </div>
 
-  <errorToast :error="this.error"/>
+  <errorToast :error="this.error"/> <!-- The error toast is used by all components to display an error message -->
 
 </template>
 
