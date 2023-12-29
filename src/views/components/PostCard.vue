@@ -14,7 +14,7 @@
           {{post.likes.length}}
         </span>
         <span class="author">
-          {{timestamp}} &nbsp
+          {{ timeSince }} &nbsp
           <router-link :to="'/users/' + post.author.user_id" id="author" >
             {{"@" + post.author.username }}
           </router-link>
@@ -56,8 +56,25 @@ export default {
     likeButtonState(){
       return this.post.likes.some(like => like.user_id == localStorage.getItem("user_id"));
     },
-    timestamp(){
-      return new Date(this.post.timestamp).toLocaleString();
+    timeSince(){
+      let timeSince = Date.now() - new Date(this.post.timestamp).getTime();
+      let timeSinceInMinutes = Math.floor(timeSince / 60000);
+      if(timeSinceInMinutes < 1){
+        return "Just now";
+      } else if(timeSinceInMinutes < 60){
+        return timeSinceInMinutes + " minutes ago";
+      } else if(timeSinceInMinutes < 1440){
+        return Math.floor(timeSinceInMinutes / 60) + " hours ago";
+      } else if(timeSinceInMinutes < 10080){
+        return Math.floor(timeSinceInMinutes / 1440) + " days ago";
+      } else if(timeSinceInMinutes < 40320){
+        return Math.floor(timeSinceInMinutes / 10080) + " weeks ago";
+      } else if(timeSinceInMinutes < 525600){
+        return Math.floor(timeSinceInMinutes / 43200) + " months ago";
+      } else {
+        return Math.floor(timeSinceInMinutes / 525600) + " years ago";
+      }
+      // return new Date(this.post.timestamp).toLocaleString("en-GB", {day: "numeric", month: "numeric", year: "2-digit",})
     }
   },
   methods: {
@@ -127,6 +144,8 @@ export default {
   }
   .likes:hover{
     scale: 1.1;
-
+  }
+  .bi-heart-fill{
+    color: red;
   }
 </style>
