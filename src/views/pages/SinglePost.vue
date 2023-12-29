@@ -122,4 +122,7 @@ export default {
   .likes:hover{
     scale: 1.1;
   }
+  .bi-heart-fill{
+    color: red;
+  }
 </style>
