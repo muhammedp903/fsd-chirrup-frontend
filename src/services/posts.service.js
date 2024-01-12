@@ -60,7 +60,7 @@ const newPost = (text) => {
             } else if(response.status === 400){
                 throw "Bad request";
             } else if(response.status === 401){
-                throw "Unauthorised";
+                throw "Log in to post";
             } else {
                 throw "Something went wrong";
             }
@@ -69,7 +69,6 @@ const newPost = (text) => {
             return resJson;
         })
         .catch(error => {
-            console.log(error);
             return Promise.reject(error);
         });
 };
@@ -95,7 +94,7 @@ const editPost = (postId, text) => {
             } else if(response.status === 401){
                 throw "Unauthorised";
             } else if(response.status === 403){
-                throw "Forbidden";
+                throw "You are not the author of this post";
             } else {
                 throw "Something went wrong";
             }
@@ -126,7 +125,7 @@ const likePost = (postId) => {
             } else if(response.status === 403){
                 throw "You have already liked this post";
             } else if(response.status === 404){
-                throw "Not found";
+                throw "Could not find that post";
             } else{
                 throw "Something went wrong."
             }
@@ -154,7 +153,7 @@ const unlikePost = (postId) => {
             } else if(response.status === 403){
                 throw "You have not liked this post";
             } else if(response.status === 404){
-                throw "Not found";
+                throw "Could not find that post";
             } else{
                 throw "Something went wrong."
             }
@@ -180,9 +179,9 @@ const deletePost = (postId) => {
             } else if(response.status === 401){
                 throw "Unauthorised";
             } else if(response.status === 403){
-                throw "Forbidden";
+                throw "You are not the author of this post";
             } else if(response.status === 404){
-                throw "Not found";
+                throw "Could not find that post";
             } else{
                 throw "Something went wrong."
             }

@@ -29,11 +29,11 @@ const followUser = (userId) => {
             if(response.status === 200){
                 return;
             } else if(response.status === 401){
-                throw "Unauthorised";
+                throw "Log in to follow this user";
             } else if(response.status === 403){
                 throw "You are already following this user";
             } else if(response.status === 404){
-                throw "Not found";
+                throw "Could not find that user";
             } else{
                 throw "Something went wrong."
             }
@@ -57,11 +57,11 @@ const unfollowUser = (userId) => {
             if(response.status === 200){
                 return;
             } else if(response.status === 401){
-                throw "Unauthorised";
+                throw "Log in to unfollow this user";
             } else if(response.status === 403){
-                throw "You can not unfollow a user that you are not following";
+                throw "You are not following this user";
             } else if(response.status === 404){
-                throw "Not found";
+                throw "Could not find that user";
             } else{
                 throw "Something went wrong."
             }

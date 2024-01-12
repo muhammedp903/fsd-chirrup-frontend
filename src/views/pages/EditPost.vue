@@ -32,7 +32,6 @@ export default {
       post: {},
       editing: false,
       draft: false,
-      submitted: false,
     };
   },
   created() {
@@ -59,7 +58,6 @@ export default {
   },
   methods: {
     handleSubmit(event) {
-      this.submitted = true;
       let submitter = event.submitter.id;
 
       if(submitter === "postButton"){
@@ -93,7 +91,6 @@ export default {
             .catch(error => {
               this.$root.error = error;
               this.$root.toast.show();
-              this.submitted = false;
             });
 
       } else {
@@ -105,7 +102,6 @@ export default {
             .catch(error => {
               this.$root.error = error;
               this.$root.toast.show();
-              this.submitted = false;
             });
       }
     },

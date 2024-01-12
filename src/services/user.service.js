@@ -71,7 +71,7 @@ const createUser = (user) => {
             if(response.status === 201){
                 return response.json();
             } else if(response.status === 400){
-                throw "Bad request (username taken)";
+                throw "The username is already taken";
             } else{
                 throw "Something went wrong."
             }
