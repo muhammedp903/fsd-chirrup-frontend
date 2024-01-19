@@ -124,7 +124,7 @@ export default {
       let drafts = JSON.parse(localStorage.getItem("drafts"));
       if(drafts){
         if(this.draft){
-          drafts[this.$route.params.id] = currentDraft; // replace the old draft with the current one
+          drafts.drafts[this.$route.params.id] = currentDraft; // replace the old draft with the current one
         } else{
           drafts.drafts.push(currentDraft); // add the new draft to the existing drafts list
         }

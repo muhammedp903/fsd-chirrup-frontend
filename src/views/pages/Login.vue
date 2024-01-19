@@ -67,11 +67,6 @@
           return;
         }
 
-        // todo: validate username
-        // if(!(EmailValidator.validate(username))){
-        //   this.error = "Email must be a valid email";
-        //   return;
-        // }
         const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$£!%*?&.,^#])[A-Za-z\d@$£!%*?&.,^#]{8,32}$/;
         if(!(passwordPattern.test(password))){
           this.$root.error = "Password does not meet requirements";
