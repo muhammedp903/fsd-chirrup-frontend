@@ -96,7 +96,9 @@ export default {
       } else {
         postService.newPost(text)
             .then(() => {
-              this.deleteDraft();
+              if(this.draft){
+                this.deleteDraft();
+              }
               this.$router.push("/profile");
             })
             .catch(error => {
