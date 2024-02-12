@@ -79,4 +79,9 @@ export default {
     background-color: #e9ecef;
     scale: 1.1;
   }
+  @media (prefers-color-scheme: dark) {
+    .nav-item:hover{
+      background-color: #404040;
+    }
+  }
 </style>

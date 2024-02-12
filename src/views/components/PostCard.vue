@@ -152,4 +152,16 @@ export default {
   .bi-heart-fill{
     color: red;
   }
+  @media (prefers-color-scheme: dark) {
+    #postText{
+      color: #fff;
+    }
+    #postTextDraft{
+      color: #fff;
+    }
+    .card-body:hover{
+      border-color: #808080;
+      background-color: #404040;
+    }
+  }
 </style>
